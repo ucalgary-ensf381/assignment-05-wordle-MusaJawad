@@ -5,9 +5,9 @@ body {
 }
 
 
-.non-changing{
+#non-changing{
   text-align: center;
-  border-bottom: 2px solid grey;
+  color: #2df13b
 
 }
 
@@ -22,12 +22,19 @@ th, td {
   width: 25% ;
   border: none;
   padding: 20px;
-  background-color: grey;
+  background-color: rgb(241, 217, 217);
 }
 
+.rightButtons{
+  margin-top: 4%;
+  position:absolute; top:0; right:0;
+  
 
+ 
+  
+}
 
-button{
+#StartOverButton{
   text-align: center;
   display: block;
   margin-left: auto;
@@ -41,3 +48,30 @@ button{
   border: 1px solid #666;
   color:#fdfdfd;
 }
+
+
+
+#myNav {
+  justify-content: center;
+  display: block;
+  height: 50px;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(220, 211, 211);
+  
+}
+
+/* Remove bullets, margin and padding */
+#myNav ul {
+  justify-content: center;
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction:row;
+  padding-bottom: 0px;
+}
+
+
