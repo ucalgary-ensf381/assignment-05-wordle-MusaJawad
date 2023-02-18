@@ -8,28 +8,15 @@ window.onload = function(){
 function checkWord(i,correctWord){
     
     const myTable = document.getElementById('myTable');
-
-
     stringUser = "";
 
     for (let cell = 0; cell < myTable.rows.length; cell++) {
     stringUser += myTable.rows[i].cells[cell].innerHTML}
 
-    
-    
-
-    
-
-    
-
     correctWord = correctWord.toLowerCase();
     stringUser = stringUser.toLowerCase();
 
-    alert(correctWord)
-    alert(stringUser)
-
     for (let cell = 0; cell < myTable.rows.length; cell++) {
-
         let check = correctWord.indexOf(stringUser[cell])
 
         if(check == -1){
@@ -41,13 +28,9 @@ function checkWord(i,correctWord){
 
             if(cell == indexCorrectChar || cell == indexCorrectLastChar ){
                 myTable.rows[i].cells[cell].style.backgroundColor = "green";
-
             }
 
-            else{
-                myTable.rows[i].cells[cell].style.backgroundColor = "yellow";
-
-            }
+            else{myTable.rows[i].cells[cell].style.backgroundColor = "yellow";}
         }
     }
 
@@ -55,10 +38,8 @@ function checkWord(i,correctWord){
         for (let cell = 0; cell < myTable.rows.length; cell++) {
             myTable.rows[i].cells[cell].style.backgroundColor = "green";
         }
-        
         return true;
     }
-    
 
     return false;    
 }
@@ -87,6 +68,7 @@ async function main(){
     var i = 0;
     var j = 0;
     guessedCorrect = false
+    lost = false
     myTable.rows[0].cells[0].style.border ="2px solid red" ;
     let dark = false;
     let image = false
@@ -106,7 +88,7 @@ async function main(){
 
     correctWord = correctWord.replace(/['"]/g, "");
 
-    alert(correctWord)
+    
 
     
 
@@ -126,6 +108,11 @@ async function main(){
         j = 0
         document.getElementById("hint").innerHTML = ""
 
+        if(lost){
+            document.getElementById("lost").innerHTML = ""
+        }
+
+
         indexValue = Number.parseInt(Math.random() * (dict.length))
         
         correctWord = JSON.stringify(dict[indexValue].word);
@@ -134,7 +121,17 @@ async function main(){
 
 
         myTable.rows[0].cells[0].style.border ="2px solid red" ;
+        
 
+        if(guessedCorrect){
+
+        imgDelete = document.querySelector('img');
+        imgDelete.remove(); 
+        document.getElementById("mainWithoutRestart").style.display = "block";
+
+        }
+
+        guessedCorrect = false;
         alert(correctWord)
 
         
@@ -192,14 +189,34 @@ async function main(){
     document.addEventListener("keyup", (k) =>{
 
 
+        if (guessedCorrect){
+            alert("You Won")
+            document.getElementById("mainWithoutRestart").style.display = "none";
+
+            var imgWin = document.createElement("img"); 
+            imgWin.src = "win.png"; 
+            var src = document.body; 
+            src.appendChild(imgWin); 
+
+        }
+
+        else if(i>3){
+            alert("You Lost")
+            lost = true
+            loser = "You lost, the word was "
+            lostText = loser.concat(correctWord)
+            document.getElementById("lost").innerHTML = lostText
+            document.getElementById("lost").style.backgroundColor = "red"
+
+        }
+    
+
+
     if (k.code === 'Enter' || k.code === 'Return' ){
         
         if (j == 4){
 
             guessedCorrect = checkWord(i,correctWord);
-                if (guessedCorrect){
-                    alert("You Won")
-                }
             
             myTable.rows[i].cells[3].style.border ="0px solid black" ;
             i = i + 1;
@@ -277,7 +294,7 @@ async function main(){
 
     })
 
-
+    
 }
 
 
